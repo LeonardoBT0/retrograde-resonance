@@ -1,13 +1,12 @@
 ---
-const title = "Hola Mundo con Astro 🚀";
 ---
-
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>{title}</title>
+    <title>Hola Mundo Astro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <style>
       body {
         margin: 0;
@@ -16,42 +15,72 @@ const title = "Hola Mundo con Astro 🚀";
         align-items: center;
         justify-content: center;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-        background: linear-gradient(135deg, #6366f1, #22d3ee);
-        color: #fff;
+        background: linear-gradient(135deg, #4f46e5, #06b6d4);
       }
 
       .card {
         background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        padding: 2.5rem 3rem;
+        backdrop-filter: blur(12px);
+        padding: 3rem;
         border-radius: 1.5rem;
         text-align: center;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        color: white;
+        width: 320px;
       }
 
       h1 {
-        margin-bottom: 1rem;
-        font-size: 2.5rem;
+        font-size: 2.3rem;
+        margin-bottom: 2rem;
       }
 
-      p {
-        font-size: 1.1rem;
-        opacity: 0.9;
+      button {
+        background: #22d3ee;
+        border: none;
+        padding: 0.9rem 2rem;
+        border-radius: 999px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(34, 211, 238, 0.4);
       }
 
-      span {
-        display: block;
-        margin-top: 1rem;
-        font-size: 0.9rem;
-        opacity: 0.8;
+      button:hover {
+        transform: translateY(-2px) scale(1.03);
+        background: #67e8f9;
+      }
+
+      button:active {
+        transform: scale(0.97);
       }
     </style>
   </head>
 
   <body>
     <div class="card">
-      <h1>🚀 Hola Mundo desde Astro</h1>
-      <p>Proyecto creado 100% desde VS Code</p>
+      <h1>🚀 Hola Mundo Astro</h1>
+      <button id="btnInsertar">Insertar</button>
     </div>
+
+    <script>
+      document
+        .getElementById("btnInsertar")
+        .addEventListener("click", async () => {
+          try {
+            const res = await fetch("/api/insertar", {
+              method: "POST",
+            });
+
+            if (res.ok) {
+              alert("✅ Insertado correctamente");
+            } else {
+              alert("❌ Error al insertar");
+            }
+          } catch (error) {
+            alert("⚠️ Error de conexión");
+          }
+        });
+    </script>
   </body>
 </html>
