@@ -1,13 +1,57 @@
 ---
+const title = "Hola Mundo con Astro 🚀";
 ---
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Hola Mundo Astro</title>
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, #6366f1, #22d3ee);
+        color: #fff;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        padding: 2.5rem 3rem;
+        border-radius: 1.5rem;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      }
+
+      h1 {
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      span {
+        display: block;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+    </style>
   </head>
+
   <body>
-    <h1>🚀 Hola Mundo desde Astro</h1>
-    <p>Proyecto creado 100% desde VS Code</p>
+    <div class="card">
+      <h1>🚀 Hola Mundo desde Astro</h1>
+      <p>Proyecto creado 100% desde VS Code</p>
+    </div>
   </body>
 </html>
