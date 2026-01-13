@@ -7,14 +7,15 @@ export async function POST() {
       ["Prueba", "Astro"]
     );
 
-    return new Response(
-      JSON.stringify({ ok: true }),
-      { status: 200 }
-    );
+    return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch (error) {
-    console.error(error);
+    console.error("ERROR INSERTAR:", error);
+
     return new Response(
-      JSON.stringify({ error: "Error al insertar" }),
+      JSON.stringify({
+        error: error.message,
+        detail: error
+      }),
       { status: 500 }
     );
   }
