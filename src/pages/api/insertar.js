@@ -1,5 +1,7 @@
 import { pool } from "../../lib/db.js";
 
+export const prerender = false;
+
 export async function POST() {
   try {
     await pool.query(
@@ -7,15 +9,13 @@ export async function POST() {
       ["Prueba", "Astro"]
     );
 
-    return new Response(JSON.stringify({ ok: true }), { status: 200 });
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+    });
   } catch (error) {
-    console.error("ERROR INSERTAR:", error);
-
+    console.error(error);
     return new Response(
-      JSON.stringify({
-        error: error.message,
-        detail: error
-      }),
+      JSON.stringify({ error: error.message }),
       { status: 500 }
     );
   }
