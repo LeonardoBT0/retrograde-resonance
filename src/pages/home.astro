@@ -36,16 +36,32 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
         <p id="msg" style="margin-top:12px;"></p>
       </section>
     </div>
+    <script type="module">
+      import { goError } from "/scripts/goError.js";
 
-    <script>
       const btn = document.getElementById("btnInsertar");
       const msg = document.getElementById("msg");
 
       if (btn) {
         btn.addEventListener("click", async () => {
-          if (msg) msg.textContent = "Insertando...";
-          const res = await fetch("/api/insertar", { method: "POST" });
-          if (msg) msg.textContent = res.ok ? "✅ Insertado correctamente" : "❌ Error al insertar";
+          try {
+            if (msg) msg.textContent = "Insertando...";
+
+            const res = await fetch("/api/insertar", { method: "POST" });
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok || !data.ok) {
+              goError(
+                data.publicMessage || "No se pudo completar la operación.",
+                data.code || "E_INSERT",
+              );
+              return;
+            }
+
+            if (msg) msg.textContent = "✅ Insertado correctamente";
+          } catch {
+            goError("Ocurrió un error de red. Intenta nuevamente.", "E_NET");
+          }
         });
       }
     </script>

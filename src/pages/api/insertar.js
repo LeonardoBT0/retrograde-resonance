@@ -11,12 +11,23 @@ export async function POST() {
 
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error(error);
+    // Log completo solo en el servidor (Vercel / consola)
+    console.error("API /insertar error:", error);
+
+    // Respuesta segura al cliente (sin filtrar detalles)
     return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500 }
+      JSON.stringify({
+        ok: false,
+        publicMessage: "No se pudo insertar el registro. Intenta nuevamente.",
+        code: "E_DB_INSERT",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
     );
   }
 }
