@@ -1,0 +1,33 @@
+---
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuración</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="topbar">
+        <div class="brand">🚀 Proyecto Astro</div>
+        <nav class="nav">
+          <a href="/home">Home</a>
+          <a href="/perfil">Perfil</a>
+          <a href="/configuracion">Configuración</a>
+          <a href="/formulario">Formulario</a>
+        </nav>
+      </header>
+
+      <Breadcrumbs items={[{ label: "Home", href: "/home" }, { label: "Configuración" }]} />
+
+      <section class="card">
+        <h1>Configuración</h1>
+        <p>Pantalla de ejemplo (breadcrumbs en forma estática).</p>
+      </section>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+.form{margin-top:16px}
+.grid{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:14px;
+}
+@media (max-width: 800px){
+  .grid{grid-template-columns: 1fr}
+}
+
+.field label{display:block;font-weight:700;margin:0 0 8px 0}
+.field input{
+  width:100%;
+  padding:11px 12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  color:rgba(255,255,255,.92);
+  outline:none;
+}
+.field input:focus{
+  border-color: rgba(124,92,255,.65);
+  box-shadow: 0 0 0 4px rgba(124,92,255,.12);
+}
+.field input.bad{
+  border-color: rgba(255,92,122,.6);
+  box-shadow: 0 0 0 4px rgba(255,92,122,.12);
+}
+
+.help{display:block;color:rgba(255,255,255,.55);margin-top:6px;font-size:12px}
+.err{display:block;color:#ff5c7a;margin-top:6px;font-size:12px;min-height:16px}
+
+.actions{
+  margin-top:16px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.btn{
+  padding:10px 12px;border-radius:12px;
+  border:1px solid rgba(124,92,255,.45);
+  background:rgba(124,92,255,.16);
+  color:rgba(255,255,255,.92);
+  cursor:pointer;font-weight:800;
+}
+.btn:hover{background:rgba(124,92,255,.22)}
+.btn.ghost{
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.06);
+}
+.btn.ghost:hover{background:rgba(255,255,255,.10)}
+
+.formMsg{margin:0;color:rgba(255,255,255,.65)}
+.formMsg.ok{color:#33d69f}
+.formMsg.err{color:#ff5c7a}

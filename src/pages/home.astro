@@ -1,33 +1,51 @@
-<!DOCTYPE html>
+---
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+---
+
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Inicio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <title>Home</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
     <link rel="stylesheet" href="/styles/home.css" />
   </head>
-
   <body>
-    <header>
-      <h1>🚀 Proyecto Astro</h1>
-    </header>
+    <div class="container">
+      <header class="topbar">
+        <div class="brand">🚀 Proyecto Astro</div>
+        <nav class="nav">
+          <a href="/home">Home</a>
+          <a href="/perfil">Perfil</a>
+          <a href="/configuracion">Configuración</a>
+          <a href="/formulario">Formulario</a>
+        </nav>
+      </header>
 
-    <main>
-      <div class="card">
-        <h2>Bienvenido</h2>
+      <Breadcrumbs items={[{ label: "Home" }]} />
+
+      <section class="card">
+        <h1>Bienvenido</h1>
         <p>Ya superaste la verificación correctamente.</p>
-        <button id="btnInsertar">Insertar</button>
-      </div>
-    </main>
+
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button id="btnInsertar" class="btn">Insertar</button>
+        </div>
+
+        <p id="msg" style="margin-top:12px;"></p>
+      </section>
+    </div>
 
     <script>
       const btn = document.getElementById("btnInsertar");
+      const msg = document.getElementById("msg");
 
       if (btn) {
         btn.addEventListener("click", async () => {
+          if (msg) msg.textContent = "Insertando...";
           const res = await fetch("/api/insertar", { method: "POST" });
-          alert(res.ok ? "✅ Insertado correctamente" : "❌ Error");
+          if (msg) msg.textContent = res.ok ? "✅ Insertado correctamente" : "❌ Error al insertar";
         });
       }
     </script>

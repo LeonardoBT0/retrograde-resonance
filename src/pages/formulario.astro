@@ -1,0 +1,116 @@
+---
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
+    <link rel="stylesheet" href="/styles/form.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="topbar">
+        <div class="brand">🚀 Proyecto Astro</div>
+        <nav class="nav">
+          <a href="/home">Home</a>
+          <a href="/perfil">Perfil</a>
+          <a href="/configuracion">Configuración</a>
+          <a href="/formulario">Formulario</a>
+        </nav>
+      </header>
+
+      <Breadcrumbs items={[{ label: "Home", href: "/home" }, { label: "Formulario" }]} />
+
+      <section class="card">
+        <h1>Registro (sin base de datos)</h1>
+        <p>Validaciones en interfaz: obligatorios, regex y confirmación.</p>
+
+        <form id="regForm" class="form" novalidate>
+          <div class="grid">
+            <div class="field">
+              <label for="nombre">Nombre *</label>
+              <input id="nombre" name="nombre" required minlength="2" placeholder="Ej. Juan Pérez" />
+              <small class="help">Mínimo 2 caracteres.</small>
+              <small class="err"></small>
+            </div>
+
+            <div class="field">
+              <label for="telefono">Teléfono *</label>
+              <input
+                id="telefono"
+                name="telefono"
+                required
+                inputmode="tel"
+                placeholder="Ej. 5512345678"
+                pattern="^[0-9]{10}$"
+              />
+              <small class="help">Exactamente 10 dígitos.</small>
+              <small class="err"></small>
+            </div>
+
+            <div class="field">
+              <label for="email">Email *</label>
+              <input
+                id="email"
+                name="email"
+                required
+                inputmode="email"
+                placeholder="ejemplo@correo.com"
+                pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+              />
+              <small class="help">Formato válido de correo.</small>
+              <small class="err"></small>
+            </div>
+
+            <div class="field">
+              <label for="usuario">Usuario *</label>
+              <input
+                id="usuario"
+                name="usuario"
+                required
+                placeholder="Ej. juan_123"
+                pattern="^[a-zA-Z0-9_]{4,12}$"
+              />
+              <small class="help">4–12 caracteres, letras/números/_</small>
+              <small class="err"></small>
+            </div>
+
+            <div class="field">
+              <label for="password">Contraseña *</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                placeholder="********"
+                pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$"
+              />
+              <small class="help">8+ con mayúscula, minúscula y número.</small>
+              <small class="err"></small>
+            </div>
+
+            <div class="field">
+              <label for="password2">Confirmar contraseña *</label>
+              <input id="password2" name="password2" type="password" required placeholder="********" />
+              <small class="help">Debe coincidir con la contraseña.</small>
+              <small class="err"></small>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" type="submit">Enviar</button>
+            <button class="btn ghost" type="button" id="btnReset">Limpiar</button>
+            <p id="formMsg" class="formMsg" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <script src="/scripts/form.js" type="module"></script>
+  </body>
+</html>

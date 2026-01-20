@@ -50,3 +50,12 @@ button {
 button:hover {
   transform: scale(1.05);
 }
+
+.btn{
+  padding:10px 12px;border-radius:12px;
+  border:1px solid rgba(124,92,255,.45);
+  background:rgba(124,92,255,.16);
+  color:rgba(255,255,255,.92);
+  cursor:pointer;font-weight:700;
+}
+.btn:hover{background:rgba(124,92,255,.22)}
