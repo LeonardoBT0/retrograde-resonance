@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/styles/home.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>🚀 Proyecto Astro</h1>
+    </header>
+
+    <main>
+      <div class="card">
+        <h2>Bienvenido</h2>
+        <p>Ya superaste la verificación correctamente.</p>
+        <button id="btnInsertar">Insertar</button>
+      </div>
+    </main>
+
+    <script>
+      const btn = document.getElementById("btnInsertar");
+
+      if (btn) {
+        btn.addEventListener("click", async () => {
+          const res = await fetch("/api/insertar", { method: "POST" });
+          alert(res.ok ? "✅ Insertado correctamente" : "❌ Error");
+        });
+      }
+    </script>
+  </body>
+</html>
