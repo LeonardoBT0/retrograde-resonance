@@ -1,10 +1,12 @@
 ---
 const params = Astro.url.searchParams;
 
+// Mensaje público (controlado)
 const message =
   params.get("msg") ??
   "Ocurrió un problema inesperado. Por favor intenta nuevamente.";
 
+// Código opcional (para soporte / debugging)
 const code = params.get("code");
 ---
 
@@ -33,8 +35,8 @@ const code = params.get("code");
         )}
 
         <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
-          <a href="/home" class="btn">Volver a Home</a>
-          <a href="/" class="btn ghost">Ir al inicio</a>
+          <a href="/home" class="btn">Volver al inicio</a>
+          <a href="/" class="btn ghost">Ir al inicio principal</a>
         </div>
       </section>
     </div>

@@ -20,6 +20,9 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
           <a href="/perfil">Perfil</a>
           <a href="/configuracion">Configuración</a>
           <a href="/formulario">Formulario</a>
+
+          <!-- ✅ NUEVO: Cerrar sesión -->
+          <button id="btnLogout" class="btnLogout" type="button">Cerrar sesión</button>
         </nav>
       </header>
 
@@ -36,9 +39,11 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
         <p id="msg" style="margin-top:12px;"></p>
       </section>
     </div>
+
     <script type="module">
       import { goError } from "/scripts/goError.js";
 
+      // ===== Insertar =====
       const btn = document.getElementById("btnInsertar");
       const msg = document.getElementById("msg");
 
@@ -47,13 +52,17 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
           try {
             if (msg) msg.textContent = "Insertando...";
 
-            const res = await fetch("/api/insertar", { method: "POST" });
+            const res = await fetch("/api/insertar", {
+              method: "POST",
+              credentials: "same-origin",
+            });
+
             const data = await res.json().catch(() => ({}));
 
             if (!res.ok || !data.ok) {
               goError(
                 data.publicMessage || "No se pudo completar la operación.",
-                data.code || "E_INSERT",
+                data.code || "E_INSERT"
               );
               return;
             }
@@ -61,6 +70,27 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
             if (msg) msg.textContent = "✅ Insertado correctamente";
           } catch {
             goError("Ocurrió un error de red. Intenta nuevamente.", "E_NET");
+          }
+        });
+      }
+
+      // ===== ✅ Logout =====
+      const btnLogout = document.getElementById("btnLogout");
+
+      if (btnLogout) {
+        btnLogout.addEventListener("click", async () => {
+          try {
+            const res = await fetch("/api/auth/logout", {
+              method: "POST",
+              credentials: "same-origin",
+            });
+
+            const data = await res.json().catch(() => ({}));
+
+            // siempre manda al inicio (login/captcha)
+            window.location.href = data.redirectTo || "/";
+          } catch {
+            goError("No se pudo cerrar sesión. Intenta nuevamente.", "E_LOGOUT");
           }
         });
       }

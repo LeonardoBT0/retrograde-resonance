@@ -1,0 +1,81 @@
+.authCard{
+  margin-bottom: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), transparent 40%), rgba(15,26,43,1);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.35);
+  overflow: hidden;
+}
+
+.authTabs{
+  display:flex;
+  gap:8px;
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.02);
+}
+
+.authTab{
+  flex:1;
+  padding:10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.80);
+  cursor:pointer;
+  font-weight: 800;
+}
+.authTab.active{
+  border-color: rgba(124,92,255,.45);
+  background: rgba(124,92,255,.16);
+  color: rgba(255,255,255,0.92);
+}
+
+.authForm{
+  padding: 14px 16px 16px 16px;
+  display:grid;
+  gap: 10px;
+}
+
+.authRow{display:grid;gap:6px}
+.authLabel{font-size:13px;color:rgba(255,255,255,.72);font-weight:700}
+
+.authInput{
+  width:100%;
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.92);
+  outline: none;
+}
+.authInput:focus{
+  border-color: rgba(124,92,255,.65);
+  box-shadow: 0 0 0 4px rgba(124,92,255,.12);
+}
+
+.authBtn{
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(124,92,255,.45);
+  background: rgba(124,92,255,.16);
+  color: rgba(255,255,255,0.92);
+  cursor:pointer;
+  font-weight: 900;
+}
+.authBtn:hover{background: rgba(124,92,255,.22)}
+.authBtn:disabled{opacity:.65;cursor:not-allowed}
+
+.authMsg{
+  margin:0;
+  font-size: 13px;
+  color: rgba(255,255,255,.70);
+}
+
+.hidden{display:none!important}
+
+/* opcional: el captcha se ve "bloqueado" */
+#captchaSection[data-locked="true"]{
+  opacity: .75;
+  filter: grayscale(.2);
+}
