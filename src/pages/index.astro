@@ -11,45 +11,25 @@
   <body>
     <main class="wrap">
       <h1>Acceso</h1>
-      <p class="sub">
-        Regístrate o inicia sesión. Después podrás completar la verificación
-        humana.
-      </p>
+      <p class="sub">Regístrate o inicia sesión. Después podrás completar la verificación humana.</p>
 
-      <!-- AUTH: Registro/Login -->
+      <!-- AUTH -->
       <section class="authCard" aria-label="Autenticación">
         <div class="authTabs">
-          <button id="tabLogin" class="authTab active" type="button"
-            >Iniciar sesión</button
-          >
-          <button id="tabRegister" class="authTab" type="button"
-            >Registrarme</button
-          >
+          <button id="tabLogin" class="authTab active" type="button">Iniciar sesión</button>
+          <button id="tabRegister" class="authTab" type="button">Registrarme</button>
         </div>
 
         <!-- Login -->
-        <form id="loginForm" class="authForm">
+        <form id="loginForm" class="authForm" autocomplete="off" novalidate>
           <div class="authRow">
             <label class="authLabel" for="loginNombre">Nombre</label>
-            <input
-              class="authInput"
-              id="loginNombre"
-              name="nombre"
-              required
-              placeholder="Tu nombre"
-            />
+            <input class="authInput" id="loginNombre" name="nombre" required minlength="2" placeholder="Tu nombre" />
           </div>
 
           <div class="authRow">
             <label class="authLabel" for="loginPass">Contraseña</label>
-            <input
-              class="authInput"
-              id="loginPass"
-              name="pass"
-              type="password"
-              required
-              placeholder="********"
-            />
+            <input class="authInput" id="loginPass" name="pass" type="password" required placeholder="********" />
           </div>
 
           <button id="loginBtn" class="authBtn" type="submit">Entrar</button>
@@ -57,58 +37,30 @@
         </form>
 
         <!-- Registro -->
-        <form id="registerForm" class="authForm hidden" autocomplete="off">
+        <form id="registerForm" class="authForm hidden" autocomplete="off" novalidate>
           <div class="authRow">
             <label class="authLabel" for="regNombre">Nombre</label>
-            <input
-              class="authInput"
-              id="regNombre"
-              name="nombre"
-              required
-              minlength="2"
-              placeholder="Ej. Juan"
-            />
+            <input class="authInput" id="regNombre" name="nombre" required minlength="2" placeholder="Ej. Juan" />
           </div>
 
           <div class="authRow">
             <label class="authLabel" for="regPass">Contraseña</label>
-            <input
-              class="authInput"
-              id="regPass"
-              name="pass"
-              type="password"
-              required
-              minlength="4"
-              placeholder="********"
-            />
+            <input class="authInput" id="regPass" name="pass" type="password" required placeholder="********" />
+            <small class="authHelp">Debe tener 8+ caracteres e incluir mayúscula, minúscula y número.</small>
           </div>
 
           <div class="authRow">
             <label class="authLabel" for="regPass2">Confirmar contraseña</label>
-            <input
-              class="authInput"
-              id="regPass2"
-              name="pass2"
-              type="password"
-              required
-              minlength="4"
-              placeholder="********"
-            />
+            <input class="authInput" id="regPass2" name="pass2" type="password" required placeholder="********" />
           </div>
 
-          <button id="regBtn" class="authBtn" type="submit">Crear cuenta</button
-          >
+          <button id="regBtn" class="authBtn" type="submit">Crear cuenta</button>
           <p id="regMsg" class="authMsg" role="status" aria-live="polite"></p>
         </form>
       </section>
 
-      <!-- CAPTCHA: bloqueado hasta login -->
-      <section
-        class="widget"
-        aria-label="Verificación"
-        id="captchaSection"
-        data-locked="true"
-      >
+      <!-- CAPTCHA (bloqueado hasta login) -->
+      <section class="widget" aria-label="Verificación" id="captchaSection" data-locked="true">
         <div class="widgetTop">
           <div class="left">
             <div class="checkbox" title="Marcar verificación">
@@ -117,9 +69,7 @@
 
             <div class="titleLine">
               <strong>No soy un robot</strong>
-              <span id="captchaHint"
-                >Inicia sesión para habilitar la verificación</span
-              >
+              <span id="captchaHint">Inicia sesión para habilitar la verificación</span>
             </div>
           </div>
 
@@ -161,26 +111,46 @@
     </main>
 
     <script type="module">
-      // Helper para pantalla de error
       import { goError } from "/scripts/goError.js";
 
-      // ====== TABS ======
+      // ===== refs tabs/forms =====
       const tabLogin = document.getElementById("tabLogin");
       const tabRegister = document.getElementById("tabRegister");
       const loginForm = document.getElementById("loginForm");
       const registerForm = document.getElementById("registerForm");
+
       const authMsg = document.getElementById("authMsg");
       const regMsg = document.getElementById("regMsg");
       const loginBtn = document.getElementById("loginBtn");
       const regBtn = document.getElementById("regBtn");
+
+      // ===== helpers =====
+      function setMsg(el, text, type = "") {
+        if (!el) return;
+        el.textContent = text || "";
+        el.classList.remove("ok", "err");
+        if (type) el.classList.add(type);
+      }
+
+      function clearForm(formEl) {
+        if (!(formEl instanceof HTMLFormElement)) return;
+        formEl.reset();
+        // limpia el mensaje dentro del form (si existe)
+        const localMsg = formEl.querySelector(".authMsg");
+        if (localMsg) localMsg.textContent = "";
+      }
 
       function showLogin() {
         tabLogin?.classList.add("active");
         tabRegister?.classList.remove("active");
         loginForm?.classList.remove("hidden");
         registerForm?.classList.add("hidden");
-        if (authMsg) authMsg.textContent = "";
-        if (regMsg) regMsg.textContent = "";
+
+        // ✅ no guardar datos
+        clearForm(registerForm);
+        clearForm(loginForm);
+        setMsg(authMsg, "");
+        setMsg(regMsg, "");
       }
 
       function showRegister() {
@@ -188,14 +158,18 @@
         tabLogin?.classList.remove("active");
         registerForm?.classList.remove("hidden");
         loginForm?.classList.add("hidden");
-        if (authMsg) authMsg.textContent = "";
-        if (regMsg) regMsg.textContent = "";
+
+        // ✅ no guardar datos
+        clearForm(loginForm);
+        clearForm(registerForm);
+        setMsg(authMsg, "");
+        setMsg(regMsg, "");
       }
 
       tabLogin?.addEventListener("click", showLogin);
       tabRegister?.addEventListener("click", showRegister);
 
-      // ====== CAPTCHA refs ======
+      // ===== captcha refs =====
       const captchaSection = document.getElementById("captchaSection");
       const check = document.getElementById("check");
       const form = document.getElementById("f");
@@ -216,54 +190,53 @@
 
       function unlockCaptcha() {
         if (check instanceof HTMLInputElement) check.disabled = false;
-        if (captchaHint)
-          captchaHint.textContent = "Completa el reto rápido para continuar";
+        if (captchaHint) captchaHint.textContent = "Completa el reto rápido para continuar";
         captchaSection?.setAttribute("data-locked", "false");
       }
 
-      // ====== REGISTRO ======
+      // ===== REGISTRO =====
       registerForm?.addEventListener("submit", async (e) => {
         e.preventDefault();
-        if (!(registerForm instanceof HTMLFormElement)) return;
 
-        const nombre = String(
-          document.getElementById("regNombre")?.value ?? "",
-        ).trim();
+        const nombre = String(document.getElementById("regNombre")?.value ?? "").trim();
         const pass = String(document.getElementById("regPass")?.value ?? "");
         const pass2 = String(document.getElementById("regPass2")?.value ?? "");
 
-        if (!nombre || !pass) {
-          if (regMsg) regMsg.textContent = "❌ Completa los datos.";
+        if (!nombre || nombre.length < 2) {
+          setMsg(regMsg, "❌ Usuario inválido.", "err");
+          return;
+        }
+        if (!pass) {
+          setMsg(regMsg, "❌ Contraseña inválida.", "err");
           return;
         }
         if (pass !== pass2) {
-          if (regMsg) regMsg.textContent = "❌ Las contraseñas no coinciden.";
+          setMsg(regMsg, "❌ Las contraseñas no coinciden.", "err");
           return;
         }
 
         if (regBtn instanceof HTMLButtonElement) regBtn.disabled = true;
-        if (regMsg) regMsg.textContent = "Registrando...";
+        setMsg(regMsg, "Registrando...");
 
         try {
           const res = await fetch("/api/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            credentials: "same-origin",
             body: JSON.stringify({ nombre, pass }),
           });
 
           const data = await res.json().catch(() => ({}));
 
           if (!res.ok || !data.ok) {
-            if (regMsg)
-              regMsg.textContent =
-                "❌ " + (data.message || "No se pudo registrar.");
-            if (regBtn instanceof HTMLButtonElement) regBtn.disabled = false;
+            // Mensaje exacto viene del backend
+            setMsg(regMsg, "❌ " + (data.message || "No se pudo registrar."), "err");
             return;
           }
 
-          if (regMsg)
-            regMsg.textContent = "✅ Registrado. Ahora inicia sesión.";
-          // Vuelve a login
+          setMsg(regMsg, "✅ Registro exitoso. Ahora inicia sesión.", "ok");
+
+          // ✅ cambiar a login y limpiar ambos
           showLogin();
         } catch {
           goError("Error de red al registrar.", "E_REG_NET");
@@ -272,23 +245,24 @@
         }
       });
 
-      // ====== LOGIN ======
+      // ===== LOGIN =====
       loginForm?.addEventListener("submit", async (e) => {
         e.preventDefault();
-        if (!(loginForm instanceof HTMLFormElement)) return;
 
-        const nombre = String(
-          document.getElementById("loginNombre")?.value ?? "",
-        ).trim();
+        const nombre = String(document.getElementById("loginNombre")?.value ?? "").trim();
         const pass = String(document.getElementById("loginPass")?.value ?? "");
 
-        if (!nombre || !pass) {
-          if (authMsg) authMsg.textContent = "❌ Completa los datos.";
+        if (!nombre || nombre.length < 2) {
+          setMsg(authMsg, "❌ Usuario inválido.", "err");
+          return;
+        }
+        if (!pass) {
+          setMsg(authMsg, "❌ Contraseña inválida.", "err");
           return;
         }
 
         if (loginBtn instanceof HTMLButtonElement) loginBtn.disabled = true;
-        if (authMsg) authMsg.textContent = "Iniciando sesión...";
+        setMsg(authMsg, "Iniciando sesión...");
 
         try {
           const res = await fetch("/api/auth/login", {
@@ -301,17 +275,12 @@
           const data = await res.json().catch(() => ({}));
 
           if (!res.ok || !data.ok) {
-            if (authMsg)
-              authMsg.textContent =
-                "❌ " + (data.message || "No se pudo iniciar sesión.");
-            if (loginBtn instanceof HTMLButtonElement)
-              loginBtn.disabled = false;
+            // Mensaje exacto viene del backend
+            setMsg(authMsg, "❌ " + (data.message || "No se pudo iniciar sesión."), "err");
             return;
           }
 
-          if (authMsg)
-            authMsg.textContent =
-              "✅ Sesión iniciada. Completa la verificación.";
+          setMsg(authMsg, "✅ Sesión iniciada. Completa la verificación.", "ok");
           unlockCaptcha();
         } catch {
           goError("Error de red al iniciar sesión.", "E_LOGIN_NET");
@@ -320,7 +289,7 @@
         }
       });
 
-      // ====== CAPTCHA (igual que el tuyo, pero con manejo a /error) ======
+      // ===== CAPTCHA =====
       if (
         !(check instanceof HTMLInputElement) ||
         !(form instanceof HTMLFormElement) ||
@@ -336,17 +305,11 @@
           setCaptchaMsg("");
           q.textContent = "Cargando reto…";
 
-          const res = await fetch("/api/human-challenge", {
-            credentials: "same-origin",
-          });
+          const res = await fetch("/api/human-challenge", { credentials: "same-origin" });
           const data = await res.json().catch(() => ({}));
 
           if (!res.ok || !data.ok) {
-            // si no hay sesión, o fallo server, manda a error para reintentar
-            goError(
-              data.message || "No se pudo cargar el reto.",
-              data.code || "E_CAPTCHA_LOAD",
-            );
+            goError(data.message || "No se pudo cargar el reto.", data.code || "E_CAPTCHA_LOAD");
             return;
           }
 
@@ -388,12 +351,9 @@
           const data = await res.json().catch(() => ({}));
 
           if (!res.ok || !data.ok) {
-            // Redirige a pantalla de error y deja botón reintentar (volver a /)
             window.location.href =
               "/error?msg=" +
-              encodeURIComponent(
-                data.message || "Verificación fallida. Intenta nuevamente.",
-              ) +
+              encodeURIComponent(data.message || "Verificación fallida. Intenta nuevamente.") +
               "&code=" +
               encodeURIComponent(data.code || "E_CAPTCHA_BAD") +
               "&retry=captcha";

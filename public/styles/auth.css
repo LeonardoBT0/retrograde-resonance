@@ -79,3 +79,13 @@
   opacity: .75;
   filter: grayscale(.2);
 }
+
+.authMsg.ok { color: #33d69f; }
+.authMsg.err { color: #ff5c7a; }
+
+.authHelp{
+  display:block;
+  margin-top:6px;
+  font-size:12px;
+  color: rgba(255,255,255,.55);
+}
