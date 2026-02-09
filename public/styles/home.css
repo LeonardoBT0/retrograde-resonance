@@ -1,75 +1,66 @@
-* {
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+/* ===== Home header/nav/logout ===== */
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,.86);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(10px);
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #020617, #020617);
-  color: white;
+.brand{
+  font-weight: 1000;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  display:flex;
+  align-items:center;
+  gap: 10px;
 }
 
-header {
-  padding: 1.5rem;
-  text-align: center;
-  background: #020617;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.nav{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3rem 1rem;
+.nav a{
+  text-decoration:none;
+  color: var(--muted);
+  font-weight: 900;
+  padding: 8px 10px;
+  border-radius: 14px;
+  transition: background .14s ease, color .14s ease, transform .14s ease;
 }
 
-.card {
-  background: #020617;
-  padding: 2.5rem;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-  max-width: 420px;
-  width: 100%;
+.nav a:hover{
+  background: rgba(79,124,255,.10);
+  color: var(--text);
+  transform: translateY(-1px);
 }
-
-button {
-  margin-top: 1.5rem;
-  background: linear-gradient(135deg, #10b981, #22c55e);
-  border: none;
-  padding: 0.9rem 2.4rem;
-  border-radius: 999px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  transform: scale(1.05);
-}
-
-.btn{
-  padding:10px 12px;border-radius:12px;
-  border:1px solid rgba(124,92,255,.45);
-  background:rgba(124,92,255,.16);
-  color:rgba(255,255,255,.92);
-  cursor:pointer;font-weight:700;
-}
-.btn:hover{background:rgba(124,92,255,.22)}
 
 .btnLogout{
-  margin-left: 12px;
-  padding: 8px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,92,122,.45);
-  background: rgba(255,92,122,.14);
-  color: rgba(255,255,255,.92);
-  cursor: pointer;
-  font-weight: 800;
+  padding: 10px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(239,68,68,.32);
+  background: rgba(239,68,68,.08);
+  color: rgba(239,68,68,.95);
+  font-weight: 1000;
+  cursor:pointer;
+  transition: transform .14s ease, background .14s ease;
 }
+
 .btnLogout:hover{
-  background: rgba(255,92,122,.22);
+  background: rgba(239,68,68,.12);
+  transform: translateY(-1px);
+}
+
+#msg{
+  font-weight: 800;
+  color: var(--muted);
 }

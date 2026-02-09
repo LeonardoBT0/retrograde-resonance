@@ -9,6 +9,7 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Configuración</title>
     <link rel="stylesheet" href="/styles/ui.css" />
+    <link rel="stylesheet" href="/styles/configuracion.css" />
   </head>
   <body>
     <div class="container">
@@ -22,7 +23,9 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
         </nav>
       </header>
 
-      <Breadcrumbs items={[{ label: "Home", href: "/home" }, { label: "Configuración" }]} />
+      <Breadcrumbs
+        items={[{ label: "Home", href: "/home" }, { label: "Configuración" }]}
+      />
 
       <section class="card">
         <h1>Configuración</h1>

@@ -1,57 +1,128 @@
-.form{margin-top:16px}
+/* ===== Formulario (pantalla /formulario) ===== */
+
+.form { margin-top: 18px; }
+
+/* grid responsive */
 .grid{
-  margin-top:14px;
+  margin-top: 16px;
   display:grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap:14px;
+  gap: 16px;
 }
-@media (max-width: 800px){
-  .grid{grid-template-columns: 1fr}
+@media (max-width: 820px){
+  .grid{ grid-template-columns: 1fr; }
 }
 
-.field label{display:block;font-weight:700;margin:0 0 8px 0}
+/* field card look */
+.field{
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(15,23,42,.08);
+  border-radius: 18px;
+  padding: 14px 14px 12px;
+  box-shadow: 0 10px 22px rgba(2,6,23,.05);
+  transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+}
+
+.field:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(2,6,23,.07);
+  border-color: rgba(79,124,255,.18);
+}
+
+/* labels */
+.field label{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  font-weight: 1000;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0 0 8px 0;
+}
+
+/* inputs */
 .field input{
   width:100%;
-  padding:11px 12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  color:rgba(255,255,255,.92);
-  outline:none;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(15,23,42,.12);
+  background: rgba(255,255,255,.96);
+  color: var(--text);
+  outline: none;
+  font-size: 15px;
+  transition: box-shadow .14s ease, border-color .14s ease, transform .14s ease;
 }
+
+.field input::placeholder{
+  color: rgba(100,116,139,.85);
+}
+
 .field input:focus{
-  border-color: rgba(124,92,255,.65);
-  box-shadow: 0 0 0 4px rgba(124,92,255,.12);
+  border-color: rgba(79,124,255,.55);
+  box-shadow: 0 0 0 6px rgba(79,124,255,.14);
+  transform: translateY(-1px);
 }
+
+/* invalid input style (tu JS usa .bad) */
 .field input.bad{
-  border-color: rgba(255,92,122,.6);
-  box-shadow: 0 0 0 4px rgba(255,92,122,.12);
+  border-color: rgba(239,68,68,.70);
+  box-shadow: 0 0 0 6px rgba(239,68,68,.12);
 }
 
-.help{display:block;color:rgba(255,255,255,.55);margin-top:6px;font-size:12px}
-.err{display:block;color:#ff5c7a;margin-top:6px;font-size:12px;min-height:16px}
+/* help + error messages */
+.help{
+  display:block;
+  color: var(--muted);
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.35;
+}
 
+.err{
+  display:block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.35;
+  min-height: 16px;
+  color: rgba(239,68,68,.95);
+  font-weight: 800;
+}
+
+/* actions bar */
 .actions{
-  margin-top:16px;
+  margin-top: 18px;
   display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+  gap: 12px;
+  flex-wrap: wrap;
   align-items:center;
+  padding-top: 6px;
 }
-.btn{
-  padding:10px 12px;border-radius:12px;
-  border:1px solid rgba(124,92,255,.45);
-  background:rgba(124,92,255,.16);
-  color:rgba(255,255,255,.92);
-  cursor:pointer;font-weight:800;
-}
-.btn:hover{background:rgba(124,92,255,.22)}
-.btn.ghost{
-  border:1px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.06);
-}
-.btn.ghost:hover{background:rgba(255,255,255,.10)}
 
-.formMsg{margin:0;color:rgba(255,255,255,.65)}
-.formMsg.ok{color:#33d69f}
-.formMsg.err{color:#ff5c7a}
+/* botones (usa la .btn global de ui.css) */
+.btn.ghost{
+  border: 1px solid rgba(15,23,42,.12);
+  background: rgba(255,255,255,.92);
+  color: var(--text);
+  box-shadow: none;
+}
+.btn.ghost:hover{
+  background: rgba(15,23,42,.03);
+}
+
+/* mensaje general */
+.formMsg{
+  margin: 0;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.formMsg.ok{ color: var(--success); }
+.formMsg.err{ color: var(--danger); }
+
+/* micro detalle: separa el mensaje hacia la derecha en pantallas grandes */
+@media (min-width: 900px){
+  .formMsg{
+    margin-left: auto;
+  }
+}
